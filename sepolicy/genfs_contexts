@@ -1,0 +1,26 @@
+# Backlight (vx5b3d-backlight)
+genfscon sysfs /devices/platform/soc/d4000000.apb/d4010800.i2c/i2c-1/1-0064/backlight/vx5b3d-backlight u:object_r:sysfs_leds:s0
+
+# Power Supply (88pm822-battery & smb328-charger)
+genfscon sysfs /devices/platform/soc/d4000000.apb/d4037000.i2c/i2c-2/2-0030/88pm822-battery/power_supply/battery u:object_r:sysfs_batteryinfo:s0
+genfscon sysfs /devices/platform/i2c-charger/i2c-6/6-0034/power_supply/smb328-charger u:object_r:sysfs_batteryinfo:s0
+
+# IIO Accelerometer (bma255)
+genfscon sysfs /devices/platform/i2c-sensor/i2c-5/5-0018/iio:device1 u:object_r:sysfs_sensors:s0
+genfscon sysfs /bus/iio/devices u:object_r:sysfs_sensors:s0
+
+# Devfreq (GC1000 GPU + LPDDR2 DDR)
+genfscon sysfs /devices/platform/soc/c0400000.gpu/devfreq u:object_r:sysfs_devfreq:s0
+genfscon sysfs /devices/platform/c0100000.ddr/devfreq u:object_r:sysfs_devfreq:s0
+
+# DRM & Etnaviv GPU sysfs nodes queried by Mesa drmGetDevices2()
+genfscon sysfs /devices/platform/etnaviv u:object_r:sysfs_gpu:s0
+genfscon sysfs /devices/platform/soc/c0400000.gpu u:object_r:sysfs_gpu:s0
+genfscon sysfs /devices/platform/soc/d4200000.axi/d420b000.lcd-controller u:object_r:sysfs_gpu:s0
+
+# Wi-Fi SD8777 rfkill state
+genfscon sysfs /devices/platform/soc/d4200000.axi/d4280800.sdh/mmc_host/mmc2/mmc2:0001/mmc2:0001:1/ieee80211 u:object_r:sysfs_rfkill:s0
+genfscon sysfs /class/rfkill u:object_r:sysfs_rfkill:s0
+
+# Software Sync (sw_sync) fence interface used by hwcomposer.pxa988
+genfscon debugfs /sync u:object_r:debugfs_sw_sync:s0

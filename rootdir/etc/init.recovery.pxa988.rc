@@ -1,0 +1,19 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# Recovery USB ConfigFS (ChipIdea ci_hdrc.0) & root ADB configuration for pxa988
+
+on init
+    # Override bootable/recovery/etc/init.rc (which sets sys.usb.configfs=0 in early-init)
+    setprop sys.usb.configfs 1
+    setprop sys.usb.controller ci_hdrc.0
+
+on boot
+    # Enable root ADB by default in recovery (supports adb shell & adb sideload)
+    setprop sys.usb.config adb
+    setprop lineage.service.adb.root 1
+
+on property:sys.usb.config=none && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/UDC "none"
+    rm /config/usb_gadget/g1/configs/b.1/f1
+    setprop sys.usb.ffs.ready 0
+    setprop sys.usb.state ${sys.usb.config}

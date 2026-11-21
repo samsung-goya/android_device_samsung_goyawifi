@@ -1,0 +1,8 @@
+# Allow Wi-Fi HAL (libwifi-hal-emu) to use rtnetlink and toggle rfkill0 state
+allow hal_wifi_default self:netlink_route_socket { create bind write read nlmsg_read nlmsg_write };
+allow hal_wifi_default { sysfs sysfs_rfkill }:dir r_dir_perms;
+allow hal_wifi_default { sysfs sysfs_rfkill }:file rw_file_perms;
+allow hal_wifi_default { sysfs sysfs_rfkill }:lnk_file r_file_perms;
+
+# Allow wpa_supplicant to access /dev/rfkill
+allow hal_wifi_supplicant_default rfkill_device:chr_file rw_file_perms;

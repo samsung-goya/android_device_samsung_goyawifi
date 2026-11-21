@@ -1,0 +1,26 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# ueventd permissions for Marvell PXA988 / Samsung goyawifi (Linux 4.19)
+
+# DRM & GPU (mmp-drm + etnaviv)
+/dev/dri/card*            0666   system     graphics
+/dev/dri/renderD*         0666   system     graphics
+
+# V4L2 Camera (SR200PC20M) & VPU (CODA7542)
+/dev/video0               0660   media       camera
+/dev/video1               0660   mediacodec  camera
+/dev/video2               0660   mediacodec  camera
+/dev/video3               0660   mediacodec  camera
+/dev/video4               0660   mediacodec  camera
+
+# ION & ashmem
+/dev/ion                  0666   system     system
+
+# Wi-Fi supplicant monitors rfkill events while running as user wifi.
+/dev/rfkill               0660   wifi       wifi
+
+# IIO Sensors (BMA255)
+/dev/iio:device1          0660   system     system
+
+# Audio (PXA-88PM805)
+/dev/snd/*                0660   system     audio

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     Copyright (C) 2026 The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<MediaCodecs>
+    <Decoders>
+        <MediaCodec name="OMX.marvell.video.decoder.avc" type="video/avc" update="true">
+            <Limit name="measured-frame-rate-320x240" range="120-240" />
+            <Limit name="measured-frame-rate-720x480" range="60-120" />
+            <Limit name="measured-frame-rate-1280x720" range="30-60" />
+            <Limit name="measured-frame-rate-1920x1080" range="24-35" />
+        </MediaCodec>
+        <MediaCodec name="OMX.marvell.video.decoder.mpeg4" type="video/mp4v-es" update="true">
+            <Limit name="measured-frame-rate-176x144" range="180-360" />
+            <Limit name="measured-frame-rate-480x360" range="90-180" />
+            <Limit name="measured-frame-rate-1280x720" range="30-60" />
+        </MediaCodec>
+        <MediaCodec name="OMX.marvell.video.decoder.mpeg2" type="video/mpeg2" update="true">
+            <Limit name="measured-frame-rate-720x480" range="60-120" />
+            <Limit name="measured-frame-rate-1280x720" range="30-60" />
+            <Limit name="measured-frame-rate-1920x1080" range="24-35" />
+        </MediaCodec>
+
+        <MediaCodec name="OMX.google.h264.decoder" type="video/avc" update="true">
+            <Limit name="measured-frame-rate-320x240" range="90-180" />
+            <Limit name="measured-frame-rate-720x480" range="25-50" />
+            <Limit name="measured-frame-rate-1280x720" range="8-18" />
+        </MediaCodec>
+        <MediaCodec name="OMX.google.vp8.decoder" type="video/x-vnd.on2.vp8" update="true">
+            <Limit name="measured-frame-rate-320x180" range="100-200" />
+            <Limit name="measured-frame-rate-640x360" range="35-70" />
+            <Limit name="measured-frame-rate-1280x720" range="10-22" />
+        </MediaCodec>
+        <MediaCodec name="OMX.google.vp9.decoder" type="video/x-vnd.on2.vp9" update="true">
+            <Limit name="measured-frame-rate-320x180" range="70-140" />
+            <Limit name="measured-frame-rate-640x360" range="25-50" />
+            <Limit name="measured-frame-rate-1280x720" range="6-15" />
+        </MediaCodec>
+    </Decoders>
+
+    <!--
+    <Encoders>
+        <MediaCodec name="OMX.marvell.video.encoder.avc" type="video/avc" update="true">
+            <Limit name="measured-frame-rate-320x240" range="90-180" />
+            <Limit name="measured-frame-rate-720x480" range="45-90" />
+            <Limit name="measured-frame-rate-1280x720" range="25-40" />
+        </MediaCodec>
+        <MediaCodec name="OMX.marvell.video.encoder.mpeg4" type="video/mp4v-es" update="true">
+            <Limit name="measured-frame-rate-320x240" range="90-180" />
+            <Limit name="measured-frame-rate-720x480" range="45-90" />
+            <Limit name="measured-frame-rate-1280x720" range="25-40" />
+        </MediaCodec>
+    </Encoders>
+    -->
+</MediaCodecs>

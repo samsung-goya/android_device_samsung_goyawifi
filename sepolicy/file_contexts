@@ -1,0 +1,23 @@
+# Block devices (eMMC SDH3 at d4281000.sdh)
+/dev/block/mmcblk0p4                                                        u:object_r:efs_block_device:s0
+/dev/block/mmcblk0p9                                                        u:object_r:recovery_block_device:s0
+/dev/block/mmcblk0p10                                                       u:object_r:boot_block_device:s0
+/dev/block/mmcblk0p14                                                       u:object_r:cache_block_device:s0
+/dev/block/mmcblk0p15                                                       u:object_r:system_block_device:s0
+/dev/block/mmcblk0p16                                                       u:object_r:userdata_block_device:s0
+/dev/block/zram0                                                            u:object_r:swap_block_device:s0
+
+# DRM & GPU (mmp-drm + etnaviv)
+/dev/dri(/.*)?                                                              u:object_r:gpu_device:s0
+
+# V4L2 Camera (SR200PC20M); /dev/video* and /dev/iio:device* are labeled by AOSP file_contexts
+/dev/video0                                                                 u:object_r:camera_device:s0
+
+# RFKill character device
+/dev/rfkill                                                                 u:object_r:rfkill_device:s0
+
+# Bluetooth HCI_CHANNEL_USER HAL service
+/(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth@1\.0-service\.pxa988 u:object_r:hal_bluetooth_default_exec:s0
+
+# Wi-Fi & BT setup script
+/(vendor|system/vendor)/bin/init\.goyawifi\.wifi_bt\.sh                     u:object_r:goya_wifi_bt_setup_exec:s0

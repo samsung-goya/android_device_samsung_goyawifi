@@ -1,0 +1,97 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# Common init script for Marvell PXA988 / PXA986 (Linux 4.19)
+
+import /init.pxa988.usb.rc
+import /init.goyawifi.rc
+
+on early-init
+    # Mount debugfs & initialize tracefs permissions early (before /system is mounted)
+    mount debugfs debugfs /sys/kernel/debug
+    chmod 0755 /sys/kernel/debug
+    chmod 0222 /sys/kernel/debug/tracing/trace_marker
+    chmod 0664 /sys/kernel/debug/tracing/tracing_on
+    chmod 0755 /sys/kernel/debug/tracing
+
+    # Create EFS mount point
+    mkdir /efs 0771 system system
+
+on fs
+    mount_all /fstab.pxa988
+    write /sys/block/zram0/comp_algorithm lz4
+    swapon_all /fstab.pxa988
+
+    # Tune VM for 1 GiB RAM + 96 MiB CMA + 512 MiB zram0
+    write /proc/sys/vm/swappiness 100
+    write /proc/sys/vm/page-cluster 0
+
+on post-fs
+    # Set real hardware serial number from EFS before USB ConfigFS initializes in on boot
+    exec - root system -- /vendor/bin/sh -c "read -r s < /efs/FactoryApp/serial_no 2>/dev/null; [ -n \"\$s\" ] || s=goyawifi01; setprop ro.serialno \"\$s\""
+
+    # Allow hwcomposer (system:graphics) to open sw_sync
+    chmod 0755 /sys/kernel/debug
+    chmod 0755 /sys/kernel/debug/sync
+    chown system graphics /sys/kernel/debug/sync/sw_sync
+    chmod 0666 /sys/kernel/debug/sync/sw_sync
+
+    # Load CODA7542 VPU driver (/dev/video[1-4]) once /vendor/firmware is available
+    insmod /vendor/lib/modules/v4l2-mem2mem.ko
+    insmod /vendor/lib/modules/coda.ko
+
+on post-fs-data
+    mkdir /data/vendor/wifi 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
+    mkdir /data/vendor/bluetooth 0770 bluetooth bluetooth
+
+    # Load SD8777 Wi-Fi & BT modules with EFS MAC provisioning
+    start vendor.goyawifi-wifi-bt-setup
+
+    setprop vold.post_fs_data_done 1
+
+on boot
+    # Cpusets ( dual-core Cortex-A9: cpus 0-1 )
+    mkdir /dev/cpuset/camera-daemon 0750 cameraserver cameraserver
+    write /dev/cpuset/camera-daemon/cpus 0-1
+    write /dev/cpuset/camera-daemon/mems 0
+    chown cameraserver cameraserver /dev/cpuset/camera-daemon/tasks
+    chmod 0664 /dev/cpuset/camera-daemon/tasks
+
+    # Backlight (vx5b3d-backlight)
+    chown system system /sys/class/backlight/vx5b3d-backlight/brightness
+    chmod 0664 /sys/class/backlight/vx5b3d-backlight/brightness
+
+    # CPUFreq (cpufreq-dt / schedutil)
+    chown system system /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
+    chown system system /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq
+    chown system system /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq
+    chmod 0664 /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq
+    chmod 0664 /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq
+    write /sys/devices/system/cpu/cpufreq/schedutil/up_rate_limit_us 1000
+    write /sys/devices/system/cpu/cpufreq/schedutil/down_rate_limit_us 60000
+
+    # Devfreq (GC1000 GPU + LPDDR2 DDR)
+    write /sys/class/devfreq/c0400000.gpu/polling_interval 25
+    write /sys/class/devfreq/c0100000.ddr/polling_interval 25
+    chown system system /sys/class/devfreq/c0400000.gpu/min_freq
+    chmod 0664 /sys/class/devfreq/c0400000.gpu/min_freq
+
+    # IIO Accelerometer (bma255)
+    chown system system /sys/bus/iio/devices/iio:device1/in_accel_x_raw
+    chown system system /sys/bus/iio/devices/iio:device1/in_accel_y_raw
+    chown system system /sys/bus/iio/devices/iio:device1/in_accel_z_raw
+    chown system system /sys/bus/iio/devices/iio:device1/sampling_frequency
+    chmod 0664 /sys/bus/iio/devices/iio:device1/sampling_frequency
+
+service charger /charger
+    class charger
+    seclabel u:r:charger:s0
+    stdio_to_kmsg
+
+service vendor.goyawifi-wifi-bt-setup /vendor/bin/init.goyawifi.wifi_bt.sh
+    class main
+    user root
+    group root wifi bluetooth
+    oneshot
+    disabled

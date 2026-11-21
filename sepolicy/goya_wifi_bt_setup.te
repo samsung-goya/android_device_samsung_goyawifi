@@ -1,0 +1,34 @@
+type goya_wifi_bt_setup, domain;
+type goya_wifi_bt_setup_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(goya_wifi_bt_setup)
+
+allow goya_wifi_bt_setup vendor_shell_exec:file rx_file_perms;
+allow goya_wifi_bt_setup vendor_toolbox_exec:file rx_file_perms;
+allow goya_wifi_bt_setup { system_file vendor_file shell_exec toolbox_exec }:file rx_file_perms;
+allow goya_wifi_bt_setup self:capability { chown fowner fsetid net_admin net_raw sys_module };
+
+# Load mwifiex.ko, mwifiex_sdio.ko, btmrvl.ko, btmrvl_sdio.ko
+allow goya_wifi_bt_setup { vendor_file system_file }:system module_load;
+
+# Read MAC addresses from /efs (factory ext4 may be unlabeled) and cache in /data/vendor
+allow goya_wifi_bt_setup { efs_file unlabeled }:dir r_dir_perms;
+allow goya_wifi_bt_setup { efs_file unlabeled }:file r_file_perms;
+allow goya_wifi_bt_setup vendor_data_file:dir create_dir_perms;
+allow goya_wifi_bt_setup vendor_data_file:file create_file_perms;
+allow goya_wifi_bt_setup wpa_data_file:dir create_dir_perms;
+allow goya_wifi_bt_setup wpa_data_file:file create_file_perms;
+allow goya_wifi_bt_setup wpa_data_file:sock_file { getattr unlink };
+allow goya_wifi_bt_setup bluetooth_data_file:dir create_dir_perms;
+allow goya_wifi_bt_setup bluetooth_data_file:file create_file_perms;
+
+# Network interface provisioning (mlan0 -> wlan0, p2p0 creation) and rfkill permissions
+allow goya_wifi_bt_setup self:udp_socket create_socket_perms;
+allowxperm goya_wifi_bt_setup self:udp_socket ioctl priv_sock_ioctls;
+allow goya_wifi_bt_setup self:netlink_route_socket { create_socket_perms_no_ioctl nlmsg_read nlmsg_write };
+allow goya_wifi_bt_setup self:netlink_generic_socket create_socket_perms_no_ioctl;
+allow goya_wifi_bt_setup sysfs_net:dir r_dir_perms;
+allow goya_wifi_bt_setup sysfs_net:file rw_file_perms;
+allow goya_wifi_bt_setup { sysfs sysfs_rfkill }:dir r_dir_perms;
+allow goya_wifi_bt_setup { sysfs sysfs_rfkill }:file { rw_file_perms setattr };
+allow goya_wifi_bt_setup { sysfs sysfs_rfkill }:lnk_file r_file_perms;

@@ -1,0 +1,2 @@
+allow netd self:capability sys_admin;
+allow netd unlabeled:file r_file_perms;

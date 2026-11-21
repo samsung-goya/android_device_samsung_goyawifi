@@ -1,0 +1,41 @@
+<mixer>
+  <ctl name="Speaker Playback Switch" value="0" />
+  <ctl name="Speaker Playback Volume" value="75" />
+  <ctl name="Headphone Playback Switch" value="0" />
+  <ctl name="Headphone Playback Volume" value="75" />
+  <ctl name="Capture Source" value="Mic 1" />
+  <ctl name="Mic Capture Volume" value="24" />
+
+  <path name="speaker">
+    <ctl name="Speaker Playback Switch" value="1" />
+    <ctl name="Speaker Playback Volume" value="75" />
+  </path>
+
+  <path name="headphones">
+    <ctl name="Headphone Playback Switch" value="1" />
+    <ctl name="Headphone Playback Volume" value="75" />
+  </path>
+
+  <path name="headphone">
+    <path name="headphones" />
+  </path>
+
+  <path name="speaker-and-headphones">
+    <path name="speaker" />
+    <path name="headphones" />
+  </path>
+
+  <path name="builtin-mic">
+    <ctl name="Capture Source" value="Mic 1" />
+    <ctl name="Mic Capture Volume" value="24" />
+  </path>
+
+  <path name="main-mic">
+    <path name="builtin-mic" />
+  </path>
+
+  <path name="headset-mic">
+    <ctl name="Capture Source" value="Headset Mic" />
+    <ctl name="Mic Capture Volume" value="24" />
+  </path>
+</mixer>

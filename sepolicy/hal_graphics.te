@@ -1,0 +1,12 @@
+# Allow SurfaceFlinger, BootAnimation, apps (excluding isolated/ephemeral), and graphics HALs
+# to enumerate /dev/dri and read Etnaviv / MMP DRM sysfs uevent attributes via Mesa drmGetDevices2()
+allow { surfaceflinger system_server bootanim appdomain -isolated_app hal_graphics_composer_default hal_graphics_allocator_default } gpu_device:dir r_dir_perms;
+allow { surfaceflinger bootanim appdomain -isolated_app -ephemeral_app hal_graphics_composer_default hal_graphics_allocator_default } sysfs_gpu:dir r_dir_perms;
+allow { surfaceflinger bootanim appdomain -isolated_app -ephemeral_app hal_graphics_composer_default hal_graphics_allocator_default } sysfs_gpu:file r_file_perms;
+allow { surfaceflinger bootanim appdomain -isolated_app -ephemeral_app hal_graphics_composer_default hal_graphics_allocator_default } sysfs_gpu:lnk_file r_file_perms;
+
+# HWC (hwcomposer.pxa988): hotplug uevent socket, vndbinder, & sw_sync fence timeline
+vndbinder_use(hal_graphics_composer_default)
+allow hal_graphics_composer_default self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
+allow hal_graphics_composer_default debugfs_sw_sync:dir r_dir_perms;
+allow hal_graphics_composer_default debugfs_sw_sync:file rw_file_perms;

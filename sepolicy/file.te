@@ -1,0 +1,5 @@
+type sysfs_sensors, fs_type, sysfs_type;
+type sysfs_devfreq, fs_type, sysfs_type;
+type sysfs_gpu, fs_type, sysfs_type;
+type sysfs_rfkill, fs_type, sysfs_type;
+type debugfs_sw_sync, fs_type, debugfs_type;

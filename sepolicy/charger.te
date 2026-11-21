@@ -1,0 +1,7 @@
+# Allow off-mode charger to render via mmp-drm (/dev/dri/card*)
+allow charger gpu_device:dir r_dir_perms;
+allow charger gpu_device:chr_file rw_file_perms;
+
+# Allow charger to scan /dev and set wakeup alarms
+allow charger device:dir r_dir_perms;
+allow charger self:capability2 wake_alarm;

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     Copyright (C) 2026 The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+
+     Media codecs configuration for Samsung Galaxy Tab 3 Lite 7.0 (SM-T110 / goyawifi)
+     Hardware VPU: Chips&Media CODA7542 (Linux 4.19 V4L2 M2M coda.ko)
+-->
+<MediaCodecs>
+    <Settings>
+        <Setting name="max-video-encoder-input-buffers" value="4" />
+    </Settings>
+
+    <Decoders>
+        <!-- Chips&Media CODA7542 Hardware Video Decoders (/dev/video2 coda-decoder) -->
+        <MediaCodec name="OMX.marvell.video.decoder.avc" type="video/avc">
+            <Limit name="size" min="176x144" max="1920x1088" />
+            <Limit name="alignment" value="2x2" />
+            <Limit name="block-size" value="16x16" />
+            <Limit name="blocks-per-second" min="1" max="244800" />
+            <Limit name="bitrate" range="1-20000000" />
+            <Limit name="concurrent-instances" max="4" />
+            <Feature name="adaptive-playback" />
+        </MediaCodec>
+
+        <MediaCodec name="OMX.marvell.video.decoder.mpeg4" type="video/mp4v-es">
+            <Limit name="size" min="176x144" max="1920x1088" />
+            <Limit name="alignment" value="2x2" />
+            <Limit name="block-size" value="16x16" />
+            <Limit name="blocks-per-second" min="1" max="244800" />
+            <Limit name="bitrate" range="1-20000000" />
+            <Limit name="concurrent-instances" max="4" />
+            <Feature name="adaptive-playback" />
+        </MediaCodec>
+
+        <MediaCodec name="OMX.marvell.video.decoder.mpeg2" type="video/mpeg2">
+            <Limit name="size" min="176x144" max="1920x1088" />
+            <Limit name="alignment" value="2x2" />
+            <Limit name="block-size" value="16x16" />
+            <Limit name="blocks-per-second" min="1" max="244800" />
+            <Limit name="bitrate" range="1-20000000" />
+            <Limit name="concurrent-instances" max="4" />
+            <Feature name="adaptive-playback" />
+        </MediaCodec>
+    </Decoders>
+
+    <!-- Chips&Media CODA7542 Hardware Video Encoders (/dev/video1 coda-encoder) (disabled for now) -->
+    <!--
+    <Encoders>
+        <MediaCodec name="OMX.marvell.video.encoder.avc" type="video/avc">
+            <Limit name="size" min="176x144" max="1280x720" />
+            <Limit name="alignment" value="16x16" />
+            <Limit name="block-size" value="16x16" />
+            <Limit name="blocks-per-second" min="1" max="108000" />
+            <Limit name="bitrate" range="64000-12000000" />
+            <Limit name="concurrent-instances" max="4" />
+        </MediaCodec>
+
+        <MediaCodec name="OMX.marvell.video.encoder.mpeg4" type="video/mp4v-es">
+            <Limit name="size" min="176x144" max="1280x720" />
+            <Limit name="alignment" value="16x16" />
+            <Limit name="block-size" value="16x16" />
+            <Limit name="blocks-per-second" min="1" max="108000" />
+            <Limit name="bitrate" range="64000-12000000" />
+            <Limit name="concurrent-instances" max="4" />
+        </MediaCodec>
+    </Encoders>
+    -->
+
+    <Include href="media_codecs_google_audio.xml" />
+    <Include href="media_codecs_google_telephony.xml" />
+    <Include href="media_codecs_google_video.xml" />
+</MediaCodecs>
