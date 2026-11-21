@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: GPL-3.0-or-later
 #
 # BoardConfig for Samsung Galaxy Tab 3 Lite 7.0 Wi-Fi (SM-T110 / goyawifi)
 # SoC: Marvell PXA986 (PXA988 family, dual Cortex-A9 r3p0)

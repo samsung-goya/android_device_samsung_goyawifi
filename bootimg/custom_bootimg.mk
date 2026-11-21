@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: GPL-3.0-or-later
 #
 # Custom boot.img / recovery.img packer for Samsung Galaxy Tab 3 Lite 7.0 (goyawifi).
 # Packs zImage + DTB + FDT-tail initramfs + /chosen/bootargs for Samsung S-Boot.

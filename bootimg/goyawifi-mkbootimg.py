@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: GPL-3.0-or-later
 """SM-T110 image packer compatible with boot-deploy's pxa-mkbootimg CLI.
 
 Samsung ignores boot.img cmdline and supplies a fixed low initrd address.

@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: GPL-3.0-or-later
 #
 # LineageOS 16.0 product definition for Samsung Galaxy Tab 3 Lite 7.0 (SM-T110 / goyawifi)
 

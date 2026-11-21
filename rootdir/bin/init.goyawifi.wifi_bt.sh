@@ -1,5 +1,5 @@
 #!/vendor/bin/sh
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: GPL-3.0-or-later
 #
 # Load Marvell SD8777 Wi-Fi (mwifiex_sdio) and Bluetooth (btmrvl_sdio) modules
 # with MAC addresses provisioned from /efs.

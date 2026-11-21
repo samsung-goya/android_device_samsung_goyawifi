@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: GPL-3.0-or-later
 #
 # Low-RAM & ART/dexopt optimizations for Samsung Galaxy Tab 3 Lite 7.0 Wi-Fi (goyawifi)
 # Hardware profile: Dual-core Cortex-A9 (PXA986), ~962 MiB usable RAM (1 GiB LPDDR2

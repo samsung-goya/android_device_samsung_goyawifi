@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: GPL-3.0-or-later
 #
 # USB ConfigFS gadget configuration for Marvell PXA988 ChipIdea UDC (ci_hdrc.0)
 
